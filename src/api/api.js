@@ -5,8 +5,8 @@ const host = 'http://localhost:3030';
 async function request (url, options) {
     try {
         const response = await fetch(host + url, options);
-
-        if(response.ok !== true) {
+        console.log(response);
+        if(response.ok === false) {
             if(response.status === 403) {
                 clearUserData();
             }
@@ -14,11 +14,11 @@ async function request (url, options) {
             throw new Error(error.message);
         }
 
-        if(response.status === 204) {
+        try {
+            return await response.json();
+        } catch(err) {
             return response;
         }
-
-        return response.json();
 
     } catch (err) {
         throw err;
@@ -63,18 +63,22 @@ async function del(url) {
 async function login(email, password) {
     const response = await request('/users/login', createOptions('post', {email, password}));
     const userData = {
+        username: response.username,
         email: response.email,
         id: response._id,
+        gender: response.gender,
         token: response.accessToken
     }
     setUserdata(userData);
 }
 
-async function register(email, password) {
-    const response = await request('/users/register', createOptions('post', {email, password}));
+async function register(username, email, password, gender) {
+    const response = await request('/users/register', createOptions('post', {username, email, password, gender}));
     const userData = {
+        username: response.username,
         email: response.email,
         id: response._id,
+        gender: response.gender,
         token: response.accessToken
     }
     setUserdata(userData);
@@ -83,7 +87,7 @@ async function register(email, password) {
 async function logout() {
     await request('/users/logout', createOptions());
     clearUserData();
-    return 'logout successful';
+    alert('logout successful');
 }
 
 export {

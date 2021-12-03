@@ -1,4 +1,4 @@
-import {isLogged, loadProduct, deleteProduct} from "./util.js";
+import {isLogged, loadProduct, deleteProduct, getUserData} from "./util.js";
 import { page, render } from "./lib.js";
 import {logout} from "./api/data.js";
 
@@ -11,6 +11,7 @@ function updateUserNav() {
     if (isLogged()) {
         document.querySelector('nav .user').style.display = '';
         document.querySelector('nav .guest').style.display = 'none';
+        document.querySelector('nav .user span').textContent = `Welcome, ${getUserData().username}`
     } else {
         document.querySelector('nav .user').style.display = 'none';
         document.querySelector('nav .guest').style.display = '';
