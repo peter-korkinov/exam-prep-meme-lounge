@@ -22,17 +22,17 @@ async function loadProduct(ctx, next) {
     next();
 }
 
-// async function deleteProduct(ctx) {
-//     showModal('Are you sure you want to delete this item?', onSelect);
-//
-//     async function onSelect(choice) {
-//         if (choice) {
-//             await deleteProductById(ctx.params.id);
-//             ctx.page.redirect('/home');
-//         }
-//     }
-//
-// }
+async function deleteProduct(ctx) {
+    // showModal('Are you sure you want to delete this item?', onSelect);
+    //
+    // async function onSelect(choice) {
+    //     if (choice) {
+    //         await deleteProductById(ctx.params.id);
+    //         ctx.page.redirect('/home');
+    //     }
+    // }
+
+}
 
 function isValidUrl(str) {
     let a  = document.createElement('a');
@@ -53,7 +53,7 @@ export {
     clearUserData,
     isLogged,
     loadProduct,
-    // deleteProduct,
+    deleteProduct,
     isValidUrl,
     parseQueryString
 };
