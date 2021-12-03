@@ -1,7 +1,7 @@
 /* Add padding to containers */
 
 .container {
-    background-color: white;
+    background-color: #646464;
     padding: 16px;
     text-align: center;
 }
