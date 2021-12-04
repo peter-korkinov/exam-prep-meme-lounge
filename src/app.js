@@ -6,6 +6,7 @@ import {homePage} from "./views/home.js";
 import {loginPage} from "./views/login.js";
 import {registerPage} from "./views/register.js";
 import {guestTemplate, loggedInTemplate} from "./views/navigation.js";
+import {notify} from "./common/notify.js";
 
 
 function updateUserNav() {
@@ -23,10 +24,14 @@ function decorateContext(ctx, next) {
 }
 
 async function onLogout() {
-    // notify(await logout());
-    await logout();
-    updateUserNav();
-    page('/home');
+    try {
+        const message = await logout();
+        updateUserNav();
+        page('/home');
+        notify('info', message);
+    } catch (err) {
+        notify('error', err);
+    }
 }
 
 const navBar = document.querySelector('nav');

@@ -1,5 +1,6 @@
 import {html, render} from '/src/lib.js';
 import {login} from "../api/data.js";
+import {notify} from "../common/notify.js";
 
 
 function loginPage(ctx) {
@@ -12,9 +13,13 @@ function loginPage(ctx) {
         const email = formData.get('email');
         const password = formData.get('password');
 
-        await login(email, password);
-        ctx.updateUserNav();
-        ctx.page.redirect('/home');
+        try {
+            await login(email, password);
+            ctx.updateUserNav();
+            ctx.page.redirect('/home');
+        } catch (err) {
+            notify('error', err);
+        }
     }
 }
 

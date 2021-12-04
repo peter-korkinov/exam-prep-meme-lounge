@@ -1,5 +1,6 @@
 import {html, render} from '/src/lib.js';
 import {register} from "../api/data.js";
+import {notify} from "../common/notify.js";
 
 
 function registerPage(ctx) {
@@ -12,15 +13,23 @@ function registerPage(ctx) {
         const username = formData.get('username')
         const email = formData.get('email');
         const password = formData.get('password');
-        const repeatPassword = formData.get('repeatPassword')
+        const repeatPassword = formData.get('repeatPass')
         const gender = formData.get('gender');
 
-        if (password === repeatPassword) {
-            await register(username, email, password, gender);
-            ctx.updateUserNav();
-            ctx.page.redirect('/home');
+        if (username && email && password && repeatPassword){
+            if (password === repeatPassword) {
+                try {
+                    await register(username, email, password, gender);
+                    ctx.updateUserNav();
+                    ctx.page.redirect('/home');
+                } catch (err) {
+                    notify('error', err);
+                }
+            } else {
+                notify('error', 'Passwords do not match!');
+            }
         } else {
-            //display error notification
+            notify('error', 'All fields are required');
         }
     }
 }

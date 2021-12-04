@@ -10,7 +10,6 @@
 .notification {
     font-size: 1.5em;
     color: #ffffff;
-    display: none;
     text-align: right;
 }
 
@@ -19,6 +18,8 @@
     padding:  0.5em 2em 0.5em 2em;
     border-radius: 10px;
 }
+
+
 
 #loadingBox>span {
     background: #7CB3E9;

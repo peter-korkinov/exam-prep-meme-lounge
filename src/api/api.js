@@ -87,7 +87,7 @@ async function register(username, email, password, gender) {
 async function logout() {
     await request('/users/logout', createOptions());
     clearUserData();
-    alert('logout successful');
+    return 'Logout successful';
 }
 
 export {
