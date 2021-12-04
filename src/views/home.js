@@ -1,5 +1,5 @@
 import {html, render} from '/src/lib.js';
-import {isLogged} from "../util.js";
+import {isLogged} from "../common/util.js";
 
 
 const welcomeTemplate = () => html`

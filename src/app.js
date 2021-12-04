@@ -1,20 +1,18 @@
-import {isLogged, loadProduct, deleteProduct, getUserData} from "./util.js";
+import {isLogged, loadProduct, deleteProduct, getUserData} from "./common/util.js";
 import { page, render } from "./lib.js";
 import {logout} from "./api/data.js";
 
 import {homePage} from "./views/home.js";
 import {loginPage} from "./views/login.js";
 import {registerPage} from "./views/register.js";
+import {guestTemplate, loggedInTemplate} from "./views/navigation.js";
 
 
 function updateUserNav() {
     if (isLogged()) {
-        document.querySelector('nav .user').style.display = '';
-        document.querySelector('nav .guest').style.display = 'none';
-        document.querySelector('nav .user span').textContent = `Welcome, ${getUserData().username}`
+        render(loggedInTemplate(getUserData().username, onLogout), navBar);
     } else {
-        document.querySelector('nav .user').style.display = 'none';
-        document.querySelector('nav .guest').style.display = '';
+        render(guestTemplate(), navBar);
     }
 }
 
@@ -31,8 +29,8 @@ async function onLogout() {
     page('/home');
 }
 
+const navBar = document.querySelector('nav');
 const root = document.querySelector('main');
-document.getElementById('logout-btn').addEventListener('click', onLogout);
 
 page(decorateContext)
 page('/home', homePage);

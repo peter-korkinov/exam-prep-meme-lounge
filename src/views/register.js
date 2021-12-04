@@ -1,10 +1,34 @@
 import {html, render} from '/src/lib.js';
+import {register} from "../api/data.js";
 
 
-const registerTemplate = () => html`
+function registerPage(ctx) {
+    ctx.render(registerTemplate(onSubmit));
+
+    async function onSubmit(event) {
+        event.preventDefault();
+
+        const formData = new FormData(event.target);
+        const username = formData.get('username')
+        const email = formData.get('email');
+        const password = formData.get('password');
+        const repeatPassword = formData.get('repeatPassword')
+        const gender = formData.get('gender');
+
+        if (password === repeatPassword) {
+            await register(username, email, password, gender);
+            ctx.updateUserNav();
+            ctx.page.redirect('/home');
+        } else {
+            //display error notification
+        }
+    }
+}
+
+const registerTemplate = (onSubmit) => html`
     <!-- Register Page ( Only for guest users ) -->
     <section id="register">
-        <form id="register-form">
+        <form id="register-form" @submit=${onSubmit}>
             <div class="container">
                 <h1>Register</h1>
                 <label for="username">Username</label>
@@ -29,10 +53,6 @@ const registerTemplate = () => html`
         </form>
     </section>
 `;
-
-function registerPage(ctx) {
-    ctx.render(registerTemplate());
-}
 
 export {
     registerPage
