@@ -13,7 +13,7 @@ const endpoints = {
     recordById: '/data/memes/',
     productsOfUser: (userId) => `/data/catalog/?where=_ownerId%3D%22${userId}%22&pageSize=4&offset=`,
     productsOfUserCount: (userId) =>  `/data/catalog/?where=_ownerId%3D%22${userId}%22`,
-    create: '/data/catalog',
+    create: '/data/memes',
     edit: '/data/catalog/',
     delete: '/data/catalog/'
 };
@@ -62,7 +62,7 @@ async function getRecordById(id) {
     return api.get(endpoints.recordById + id);
 }
 
-async function createProduct(data) {
+async function createRecord(data) {
     return api.post(endpoints.create, data);
 }
 
@@ -80,7 +80,7 @@ export {
     logout,
     getRecordById,
     getAllRecords,
-    createProduct,
+    createRecord,
     editProduct,
     deleteProductById,
     // getAllProductsOfUserId,

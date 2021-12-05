@@ -79,6 +79,10 @@ a {
     color: black;
 }
 
+#description {
+    resize: none;
+}
+
 .gender label:first-of-type {
     margin-right: 60px;
 }

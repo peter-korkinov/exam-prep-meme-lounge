@@ -1,10 +1,35 @@
-import {html, render} from '/src/lib.js';
+import {html} from '/src/lib.js';
+import {createRecord} from "../api/data.js";
+import {notify} from "../common/notify.js";
 
 
-const createTemplate = () => html`
-    <!-- Create Meme Page ( Only for logged users ) -->
+function createPage(ctx) {
+    async function onSubmit(event) {
+        event.preventDefault();
+
+        const formData = new FormData(event.target);
+        const title = formData.get('title');
+        const description = formData.get('description');
+        const imageUrl = formData.get('imageUrl');
+
+        if (title && description && imageUrl) {
+            try {
+                await createRecord({title, description, imageUrl});
+                ctx.page.redirect('/home');
+            } catch (err) {
+                notify('error', err);
+            }
+        } else {
+            notify('error', 'All fields are required!');
+        }
+    }
+
+    ctx.render(createTemplate(onSubmit));
+}
+
+const createTemplate = (onSubmit) => html`
     <section id="create-meme">
-        <form id="create-form">
+        <form id="create-form" @submit=${onSubmit}>
             <div class="container">
                 <h1>Create Meme</h1>
                 <label for="title">Title</label>
@@ -18,10 +43,6 @@ const createTemplate = () => html`
         </form>
     </section>
 `;
-
-function createPage(ctx) {
-    ctx.render(createTemplate());
-}
 
 export {
     createPage

@@ -1,4 +1,4 @@
-import {html, render} from '/src/lib.js';
+import {html} from '/src/lib.js';
 import {getUserData, isLogged} from "../common/util.js";
 
 

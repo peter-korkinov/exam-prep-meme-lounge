@@ -1,4 +1,4 @@
-import {html, render} from '/src/lib.js';
+import {html} from '/src/lib.js';
 import {login} from "../api/data.js";
 import {notify} from "../common/notify.js";
 
@@ -15,7 +15,7 @@ function loginPage(ctx) {
 
         try {
             await login(email, password);
-            ctx.updateUserNav();
+            ctx.updateNavBar();
             ctx.page.redirect('/home');
         } catch (err) {
             notify('error', err);
@@ -26,7 +26,6 @@ function loginPage(ctx) {
 
 
 const loginTemplate = (onSubmit) => html`
-    <!-- Login Page ( Only for guest users ) -->
     <section id="login">
         <form id="login-form" @submit=${onSubmit}>
             <div class="container">

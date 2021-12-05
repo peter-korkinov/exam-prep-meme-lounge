@@ -1,4 +1,4 @@
-import {html, render} from '/src/lib.js';
+import {html} from '/src/lib.js';
 import {register} from "../api/data.js";
 import {notify} from "../common/notify.js";
 
@@ -20,7 +20,7 @@ function registerPage(ctx) {
             if (password === repeatPassword) {
                 try {
                     await register(username, email, password, gender);
-                    ctx.updateUserNav();
+                    ctx.updateNavBar();
                     ctx.page.redirect('/home');
                 } catch (err) {
                     notify('error', err);
