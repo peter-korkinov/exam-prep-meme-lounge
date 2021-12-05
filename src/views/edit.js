@@ -1,40 +1,21 @@
 import {html} from '/src/lib.js';
 import {editRecordById} from "../api/data.js";
 import {notify} from "../common/notify.js";
+import {onSubmit} from "../common/util.js";
 
 
 async function editPage(ctx) {
-    async function onSubmit(event) {
-        event.preventDefault();
-
-        const formData = new FormData(event.target);
-        const title = formData.get('title');
-        const description = formData.get('description');
-        const imageUrl = formData.get('imageUrl');
-
-        if (title && description && imageUrl) {
-            try {
-                await editRecordById(ctx.params.id, {title, description, imageUrl});
-                ctx.page.redirect('/catalog');
-            } catch (err) {
-                notify('error', err);
-            }
-        } else {
-            notify('error', 'All fields are required!');
-        }
-    }
-
     try {
         const meme = await ctx.recordPromise;
-        ctx.render(editTemplate(meme, onSubmit));
+        ctx.render(editTemplate(meme, onSubmit, ctx));
     } catch (err) {
         notify('error', err);
     }
 }
 
-const editTemplate = (meme, onSubmit) => html`
+const editTemplate = (meme, onSubmit, ctx) => html`
     <section id="edit-meme">
-        <form id="edit-form" @submit=${onSubmit}>
+        <form id="edit-form" @submit=${(event) => onSubmit(event, ctx, editRecordById)}>
             <h1>Edit Meme</h1>
             <div class="container">
                 <label for="title">Title</label>

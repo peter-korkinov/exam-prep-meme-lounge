@@ -1,35 +1,20 @@
 import {html} from '/src/lib.js';
 import {createRecord} from "../api/data.js";
 import {notify} from "../common/notify.js";
+import {onSubmit} from "../common/util.js";
 
 
-function createPage(ctx) {
-    async function onSubmit(event) {
-        event.preventDefault();
-
-        const formData = new FormData(event.target);
-        const title = formData.get('title');
-        const description = formData.get('description');
-        const imageUrl = formData.get('imageUrl');
-
-        if (title && description && imageUrl) {
-            try {
-                await createRecord({title, description, imageUrl});
-                ctx.page.redirect('/catalog');
-            } catch (err) {
-                notify('error', err);
-            }
-        } else {
-            notify('error', 'All fields are required!');
-        }
+async function createPage(ctx) {
+    try {
+        ctx.render(createTemplate(onSubmit, ctx));
+    } catch (err) {
+        notify('error', err);
     }
-
-    ctx.render(createTemplate(onSubmit));
 }
 
-const createTemplate = (onSubmit) => html`
+const createTemplate = (onSubmit, ctx) => html`
     <section id="create-meme">
-        <form id="create-form" @submit=${onSubmit}>
+        <form id="create-form" @submit=${(event) => onSubmit(event, ctx, createRecord)}>
             <div class="container">
                 <h1>Create Meme</h1>
                 <label for="title">Title</label>

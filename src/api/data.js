@@ -32,7 +32,7 @@ async function createRecord(data) {
     return api.post(endpoints.create, data);
 }
 
-async function editRecordById(id, data) {
+async function editRecordById(data, id) {
     return api.put(endpoints.edit + id, data);
 }
 
