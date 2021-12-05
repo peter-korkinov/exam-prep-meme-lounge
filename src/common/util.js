@@ -1,4 +1,4 @@
-import {deleteProductById, getRecordById} from "../api/data.js";
+import {deleteRecordById, getRecordById} from "../api/data.js";
 // import {showModal} from "./common/modal.js";
 
 function getUserData() {

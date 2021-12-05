@@ -14,7 +14,7 @@ const endpoints = {
     productsOfUser: (userId) => `/data/catalog/?where=_ownerId%3D%22${userId}%22&pageSize=4&offset=`,
     productsOfUserCount: (userId) =>  `/data/catalog/?where=_ownerId%3D%22${userId}%22`,
     create: '/data/memes',
-    edit: '/data/catalog/',
+    edit: '/data/memes/',
     delete: '/data/catalog/'
 };
 
@@ -66,11 +66,11 @@ async function createRecord(data) {
     return api.post(endpoints.create, data);
 }
 
-async function editProduct(id, data) {
+async function editRecordById(id, data) {
     return api.put(endpoints.edit + id, data);
 }
 
-async function deleteProductById(id) {
+async function deleteRecordById(id) {
     return api.del(endpoints.delete + id);
 }
 
@@ -81,8 +81,8 @@ export {
     getRecordById,
     getAllRecords,
     createRecord,
-    editProduct,
-    deleteProductById,
+    editRecordById,
+    deleteRecordById,
     // getAllProductsOfUserId,
     // getPagesCount,
     // getPagesCountOfUserProducts,
