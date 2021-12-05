@@ -9,10 +9,10 @@ const pageSize = 4;
 
 const endpoints = {
     allRecords: '/data/memes?sortBy=_createdOn%20desc',
-    allRecordsCount: '/data/catalog?',
+    // allRecordsCount: '/data/catalog?',
     recordById: '/data/memes/',
-    productsOfUser: (userId) => `/data/catalog/?where=_ownerId%3D%22${userId}%22&pageSize=4&offset=`,
-    productsOfUserCount: (userId) =>  `/data/catalog/?where=_ownerId%3D%22${userId}%22`,
+    recordsOfUser: (userId) => `/data/memes?where=_ownerId%3D%22${userId}%22&sortBy=_createdOn%20desc`,
+    // productsOfUserCount: (userId) =>  `/data/catalog/?where=_ownerId%3D%22${userId}%22`,
     create: '/data/memes',
     edit: '/data/memes/',
     delete: '/data/memes/'
@@ -48,15 +48,9 @@ async function getAllRecords() {
 //     return api.get(url);
 // }
 
-// async function getAllProductsOfUserId(page, id, search) {
-//     let url = endpoints.productsOfUser(id) + (page - 1) * pageSize
-//
-//     if (search) {
-//         url += '&where=' + encodeURIComponent(`make LIKE "${search}"`);
-//     }
-//
-//     return api.get(url);
-// }
+async function getAllRecordsOfUserId(id) {
+    return api.get(endpoints.recordsOfUser(id));
+}
 
 async function getRecordById(id) {
     return api.get(endpoints.recordById + id);
@@ -83,7 +77,7 @@ export {
     createRecord,
     editRecordById,
     deleteRecordById,
-    // getAllProductsOfUserId,
+    getAllRecordsOfUserId,
     // getPagesCount,
     // getPagesCountOfUserProducts,
     pageSize

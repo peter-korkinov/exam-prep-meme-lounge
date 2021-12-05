@@ -1,5 +1,4 @@
-import {deleteRecordById, getRecordById} from "../api/data.js";
-// import {showModal} from "./common/modal.js";
+import {getRecordById} from "../api/data.js";
 
 function getUserData() {
     return JSON.parse(sessionStorage.getItem('userData'));
@@ -34,26 +33,11 @@ async function deleteProduct(ctx) {
 
 }
 
-function isValidUrl(str) {
-    let a  = document.createElement('a');
-    a.href = str;
-    return (a.host && a.host !== window.location.host);
-}
-
-function parseQueryString(string) {
-    return string
-        .split('&')
-        .map(p => p.split('='))
-        .reduce((a, [k, v]) => Object.assign(a, { [k]: v }), {});
-}
-
 export {
     getUserData,
     setUserdata,
     clearUserData,
     isLogged,
     loadRecord,
-    deleteProduct,
-    isValidUrl,
-    parseQueryString
+    deleteProduct
 };

@@ -44,8 +44,8 @@ const root = document.querySelector('main');
 
 page(decorateContext)
 page('/home', homePage);
-page('/catalog', catalogPage)
-page('/', '/catalog');
+page('/', '/home');
+page('/catalog', catalogPage);
 page('/login', loginPage);
 page('/register', registerPage);
 page('/my-profile', myProfilePage);

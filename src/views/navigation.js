@@ -7,7 +7,7 @@ const loggedInTemplate = (username, onLogout) => html`
         <a href="/create">Create Meme</a>
         <div class="profile">
             <span>Welcome, ${username}</span>
-            <a href="/profile">My Profile</a>
+            <a href="/my-profile">My Profile</a>
             <a id="logout-btn" href="javascript:void(0)" @click=${onLogout}>Logout</a>
         </div>
     </div>
