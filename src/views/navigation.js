@@ -2,7 +2,7 @@ import {html} from '/src/lib.js';
 
 
 const loggedInTemplate = (username, onLogout) => html`
-    <a href="/home">All Memes</a>
+    <a href="/catalog">All Memes</a>
     <div class="user">
         <a href="/create">Create Meme</a>
         <div class="profile">
@@ -21,7 +21,7 @@ const guestTemplate = () => html`
         </div>
         <a class="active" href="/home">Home Page</a>
     </div>
-    <a href="/home">All Memes</a>
+    <a href="/catalog">All Memes</a>
 `;
 
 export {

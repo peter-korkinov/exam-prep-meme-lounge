@@ -17,7 +17,7 @@ function loginPage(ctx) {
             try {
                 await login(email, password);
                 ctx.updateNavBar();
-                ctx.page.redirect('/home');
+                ctx.page.redirect('/catalog');
             } catch (err) {
                 notify('error', err);
             }

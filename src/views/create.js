@@ -15,7 +15,7 @@ function createPage(ctx) {
         if (title && description && imageUrl) {
             try {
                 await createRecord({title, description, imageUrl});
-                ctx.page.redirect('/home');
+                ctx.page.redirect('/catalog');
             } catch (err) {
                 notify('error', err);
             }

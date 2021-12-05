@@ -21,7 +21,7 @@ function registerPage(ctx) {
                 try {
                     await register(username, email, password, gender);
                     ctx.updateNavBar();
-                    ctx.page.redirect('/home');
+                    ctx.page.redirect('/catalog');
                 } catch (err) {
                     notify('error', err);
                 }

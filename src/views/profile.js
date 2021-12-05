@@ -1,4 +1,4 @@
-import {html, render} from '/src/lib.js';
+import {html} from '/src/lib.js';
 
 
 const profileTemplate = () => html`
@@ -32,10 +32,10 @@ const profileTemplate = () => html`
     </section>
 `;
 
-function profilePage(ctx) {
+function myProfilePage(ctx) {
     ctx.render(profileTemplate());
 }
 
 export {
-    profilePage
+    myProfilePage
 };

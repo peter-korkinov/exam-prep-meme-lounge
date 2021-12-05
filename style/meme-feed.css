@@ -9,6 +9,11 @@
     font-size: 50px;
     text-decoration: none;
     color: black;
+    text-shadow:
+            -1px 1px 0 #626262,
+            1px 1px 0 #626262,
+            1px -1px 0 #626262,
+            -1px -1px 0 #626262;
 }
 
 #memes {
@@ -66,6 +71,11 @@ h2.meme-title:hover {
 .no-memes {
     font-weight: bold;
     font-size: 4em;
+    text-shadow:
+            -1px 1px 0 #626262,
+            1px 1px 0 #626262,
+            1px -1px 0 #626262,
+            -1px -1px 0 #626262;
 }
 
 #data-buttons {

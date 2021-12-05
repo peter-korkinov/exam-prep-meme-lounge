@@ -5,7 +5,7 @@ const host = 'http://localhost:3030';
 async function request (url, options) {
     try {
         const response = await fetch(host + url, options);
-        console.log(response);
+
         if(response.ok === false) {
             if(response.status === 403) {
                 clearUserData();

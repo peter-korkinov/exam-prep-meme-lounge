@@ -15,7 +15,7 @@ async function editPage(ctx) {
         if (title && description && imageUrl) {
             try {
                 await editRecordById(ctx.params.id, {title, description, imageUrl});
-                ctx.page.redirect('/home');
+                ctx.page.redirect('/catalog');
             } catch (err) {
                 notify('error', err);
             }
