@@ -8,7 +8,7 @@ const logout = api.logout;
 const pageSize = 4;
 
 const endpoints = {
-    allProducts: '/data/catalog?pageSize=4&offset=',
+    allProducts: '/data/memes',
     count: '/data/catalog?',
     productById: '/data/catalog/',
     productsOfUser: (userId) => `/data/catalog/?where=_ownerId%3D%22${userId}%22&pageSize=4&offset=`,
@@ -30,12 +30,8 @@ async function getPagesCount(search) {
     return api.get(url);
 }
 
-async function getAllProducts(page, search) {
-    let url = endpoints.allProducts + (page - 1) * pageSize;
-
-    if (search) {
-        url += '&where=' + encodeURIComponent(`make LIKE "${search}"`);
-    }
+async function getAllMemes() {
+    let url = endpoints.allProducts;
 
     return api.get(url);
 }
@@ -83,7 +79,7 @@ export {
     register,
     logout,
     getProductById,
-    getAllProducts,
+    getAllMemes,
     createProduct,
     editProduct,
     deleteProductById,

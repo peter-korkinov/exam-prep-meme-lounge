@@ -1,6 +1,20 @@
-import {html, render} from '/src/lib.js';
+import {html, until} from '/src/lib.js';
 import {isLogged} from "../common/util.js";
+import {getAllMemes} from "../api/data.js";
 
+
+function homePage(ctx) {
+    if (isLogged()) {
+        ctx.render(catalogTemplate(loadMemes()));
+    } else {
+        ctx.render(welcomeTemplate());
+    }
+}
+
+async function loadMemes() {
+    const memes = await getAllMemes();
+    return memes.map(memeCardTemplate);
+}
 
 const welcomeTemplate = () => html`
     <section id="welcome">
@@ -16,80 +30,31 @@ const welcomeTemplate = () => html`
     </section>
 `;
 
-const catalogTemplate = () => html`
-    <!-- All Memes Page ( for Guests and Users )-->
+const catalogTemplate = (memesPromise) => html`
     <section id="meme-feed">
         <h1>All Memes</h1>
         <div id="memes">
-    <!-- Display : All memes in database ( If any ) -->
-            <div class="meme">
-                <div class="card">
-                    <div class="info">
-                        <p class="meme-title">Debugging</p>
-                        <img class="meme-image" alt="meme-img" src="/images/2.png">
-                    </div>
-                    <div id="data-buttons">
-                        <a class="button" href="#">Details</a>
-                    </div>
-                </div>
-            </div>
-            <div class="meme">
-                <div class="card">
-                    <div class="info">
-                        <p class="meme-title">Java Script</p>
-                        <img class="meme-image" alt="meme-img" src="/images/4.png">
-                    </div>
-                    <div id="data-buttons">
-                        <a class="button" href="#">Details</a>
-                    </div>
-                </div>
-            </div>
-            <div class="meme">
-                <div class="card">
-                    <div class="info">
-                        <p class="meme-title">Yes, arrays are objects</p>
-                        <img class="meme-image" alt="meme-img" src="/images/6.png">
-                    </div>
-                    <div id="data-buttons">
-                        <a class="button" href="#">Details</a>
-                    </div>
-                </div>
-            </div>
-            <div class="meme">
-                <div class="card">
-                    <div class="info">
-                        <p class="meme-title">Java Script joke</p>
-                        <img class="meme-image" alt="meme-img" src="/images/1.png">
-                    </div>
-                    <div id="data-buttons">
-                        <a class="button" href="#">Details</a>
-                    </div>
-                </div>
-            </div>
-            <div class="meme">
-                <div class="card">
-                    <div class="info">
-                        <p class="meme-title">Bad code can present some problems</p>
-                        <img class="meme-image" alt="meme-img" src="/images/3.png">
-                    </div>
-                    <div id="data-buttons">
-                        <a class="button" href="#">Details</a>
-                    </div>
-                </div>
-            </div>
-    <!-- Display : If there are no memes in database -->
-            <p class="no-memes">No memes in database.</p>
+            ${until(memesPromise, html`<p>Loading &hellip;</p>`)}
+            
+
+<!--            <p class="no-memes">No memes in database.</p>-->
         </div>
     </section>
 `;
 
-function homePage(ctx) {
-    if (isLogged()) {
-        ctx.render(catalogTemplate());
-    } else {
-        ctx.render(welcomeTemplate());
-    }
-}
+const memeCardTemplate = (meme) => html`
+    <div class="meme">
+        <div class="card">
+            <div class="info">
+                <p class="meme-title">${meme.title}</p>
+                <img class="meme-image" alt="meme-img" src="${meme.imageUrl}">
+            </div>
+            <div id="data-buttons">
+                <a class="button" href="${`/details/${meme._id}`}">Details</a>
+            </div>
+        </div>
+    </div>
+`;
 
 export {
     homePage
