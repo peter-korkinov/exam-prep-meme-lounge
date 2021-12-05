@@ -1,4 +1,4 @@
-import {isLogged, loadProduct, deleteProduct, getUserData} from "./common/util.js";
+import {isLogged, loadRecord, deleteProduct, getUserData} from "./common/util.js";
 import { page, render } from "./lib.js";
 import {logout} from "./api/data.js";
 
@@ -7,6 +7,8 @@ import {loginPage} from "./views/login.js";
 import {registerPage} from "./views/register.js";
 import {guestTemplate, loggedInTemplate} from "./views/navigation.js";
 import {notify} from "./common/notify.js";
+import {detailsPage} from "./views/details.js";
+import {editPage} from "./views/edit.js";
 
 
 function updateUserNav() {
@@ -42,6 +44,8 @@ page('/home', homePage);
 page('/', '/home');
 page('/login', loginPage);
 page('/register', registerPage);
+page('/details/:id', loadRecord, detailsPage);
+page('/edit/:id', loadRecord, editPage);
 
 updateUserNav();
 page.start();

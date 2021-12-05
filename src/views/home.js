@@ -1,6 +1,6 @@
 import {html, until} from '/src/lib.js';
 import {isLogged} from "../common/util.js";
-import {getAllMemes} from "../api/data.js";
+import {getAllRecords} from "../api/data.js";
 
 
 function homePage(ctx) {
@@ -12,7 +12,7 @@ function homePage(ctx) {
 }
 
 async function loadMemes() {
-    const memes = await getAllMemes();
+    const memes = await getAllRecords();
     return memes.map(memeCardTemplate);
 }
 

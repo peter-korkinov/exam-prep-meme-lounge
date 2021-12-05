@@ -8,9 +8,9 @@ const logout = api.logout;
 const pageSize = 4;
 
 const endpoints = {
-    allProducts: '/data/memes',
-    count: '/data/catalog?',
-    productById: '/data/catalog/',
+    allRecords: '/data/memes?sortBy=_createdOn%20desc',
+    allRecordsCount: '/data/catalog?',
+    recordById: '/data/memes/',
     productsOfUser: (userId) => `/data/catalog/?where=_ownerId%3D%22${userId}%22&pageSize=4&offset=`,
     productsOfUserCount: (userId) =>  `/data/catalog/?where=_ownerId%3D%22${userId}%22`,
     create: '/data/catalog',
@@ -18,48 +18,48 @@ const endpoints = {
     delete: '/data/catalog/'
 };
 
-async function getPagesCount(search) {
-    let url = endpoints.count;
+// async function getPagesCount(search) {
+//     let url = endpoints.allRecordsCount;
+//
+//     if (search) {
+//         url += 'where=' + encodeURIComponent(`make LIKE "${search}"`) + '&count';
+//     } else {
+//         url += 'count';
+//     }
+//
+//     return api.get(url);
+// }
 
-    if (search) {
-        url += 'where=' + encodeURIComponent(`make LIKE "${search}"`) + '&count';
-    } else {
-        url += 'count';
-    }
-
-    return api.get(url);
-}
-
-async function getAllMemes() {
-    let url = endpoints.allProducts;
-
-    return api.get(url);
-}
-
-async function getPagesCountOfUserProducts(id, search) {
-    let url = endpoints.productsOfUserCount(id);
-
-    if (search) {
-        url += '&where=' + encodeURIComponent(`make LIKE "${search}"`) + '&count';
-    } else {
-        url += '&count';
-    }
+async function getAllRecords() {
+    let url = endpoints.allRecords;
 
     return api.get(url);
 }
 
-async function getAllProductsOfUserId(page, id, search) {
-    let url = endpoints.productsOfUser(id) + (page - 1) * pageSize
+// async function getPagesCountOfUserProducts(id, search) {
+//     let url = endpoints.productsOfUserCount(id);
+//
+//     if (search) {
+//         url += '&where=' + encodeURIComponent(`make LIKE "${search}"`) + '&count';
+//     } else {
+//         url += '&count';
+//     }
+//
+//     return api.get(url);
+// }
 
-    if (search) {
-        url += '&where=' + encodeURIComponent(`make LIKE "${search}"`);
-    }
+// async function getAllProductsOfUserId(page, id, search) {
+//     let url = endpoints.productsOfUser(id) + (page - 1) * pageSize
+//
+//     if (search) {
+//         url += '&where=' + encodeURIComponent(`make LIKE "${search}"`);
+//     }
+//
+//     return api.get(url);
+// }
 
-    return api.get(url);
-}
-
-async function getProductById(id) {
-    return api.get(endpoints.productById + id);
+async function getRecordById(id) {
+    return api.get(endpoints.recordById + id);
 }
 
 async function createProduct(data) {
@@ -78,13 +78,13 @@ export {
     login,
     register,
     logout,
-    getProductById,
-    getAllMemes,
+    getRecordById,
+    getAllRecords,
     createProduct,
     editProduct,
     deleteProductById,
-    getAllProductsOfUserId,
-    getPagesCount,
-    getPagesCountOfUserProducts,
+    // getAllProductsOfUserId,
+    // getPagesCount,
+    // getPagesCountOfUserProducts,
     pageSize
 }

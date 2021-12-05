@@ -1,5 +1,16 @@
 import {html, render} from '/src/lib.js';
+import {getUserData, isLogged} from "../common/util.js";
 
+
+async function editPage(ctx) {
+    ctx.render(editTemplate(await loadMeme(ctx)));
+}
+
+async function loadMeme(ctx) {
+    const meme = await ctx.recordPromise;
+
+    return meme;
+}
 
 const editTemplate = () => html`
     <!-- Edit Meme Page ( Only for logged user and creator to this meme )-->
@@ -25,10 +36,6 @@ const editTemplate = () => html`
         </form>
     </section>
 `;
-
-function editPage(ctx) {
-    ctx.render(editTemplate());
-}
 
 export {
     editPage

@@ -1,4 +1,4 @@
-import {deleteProductById, getProductById} from "../api/data.js";
+import {deleteProductById, getRecordById} from "../api/data.js";
 // import {showModal} from "./common/modal.js";
 
 function getUserData() {
@@ -17,8 +17,8 @@ function isLogged() {
     return !(sessionStorage.getItem('userData') === null);
 }
 
-async function loadProduct(ctx, next) {
-    ctx.productPromise = getProductById(ctx.params.id);
+async function loadRecord(ctx, next) {
+    ctx.recordPromise = getRecordById(ctx.params.id);
     next();
 }
 
@@ -52,7 +52,7 @@ export {
     setUserdata,
     clearUserData,
     isLogged,
-    loadProduct,
+    loadRecord,
     deleteProduct,
     isValidUrl,
     parseQueryString
