@@ -8,11 +8,13 @@ async function detailsPage(ctx) {
     ctx.render(detailsTemplate(await loadMeme(ctx), onDelete));
 
     async function onDelete(event) {
-        try {
-            await deleteRecordById(event.target.value);
-            ctx.page.redirect('/home');
-        } catch (err) {
-            notify('error', err);
+        if (confirm('Are you sure you want to delete this meme?')) {
+            try {
+                await deleteRecordById(event.target.value);
+                ctx.page.redirect('/home');
+            } catch (err) {
+                notify('error', err);
+            }
         }
     }
 }
