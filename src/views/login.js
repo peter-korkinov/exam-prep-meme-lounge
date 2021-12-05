@@ -13,12 +13,16 @@ function loginPage(ctx) {
         const email = formData.get('email');
         const password = formData.get('password');
 
-        try {
-            await login(email, password);
-            ctx.updateNavBar();
-            ctx.page.redirect('/home');
-        } catch (err) {
-            notify('error', err);
+        if (email && password) {
+            try {
+                await login(email, password);
+                ctx.updateNavBar();
+                ctx.page.redirect('/home');
+            } catch (err) {
+                notify('error', err);
+            }
+        } else {
+            notify('error', 'All fields are required!');
         }
     }
 }

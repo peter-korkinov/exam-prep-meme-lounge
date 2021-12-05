@@ -16,7 +16,7 @@ async function editPage(ctx) {
             try {
                 await editRecordById(ctx.params.id, {title, description, imageUrl});
                 ctx.page.redirect('/home');
-            } catch(err) {
+            } catch (err) {
                 notify('error', err);
             }
         } else {
@@ -24,9 +24,12 @@ async function editPage(ctx) {
         }
     }
 
-    const meme = await ctx.recordPromise;
-
-    ctx.render(editTemplate(meme, onSubmit));
+    try {
+        const meme = await ctx.recordPromise;
+        ctx.render(editTemplate(meme, onSubmit));
+    } catch (err) {
+        notify('error', err);
+    }
 }
 
 const editTemplate = (meme, onSubmit) => html`

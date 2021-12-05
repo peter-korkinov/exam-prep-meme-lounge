@@ -15,7 +15,7 @@ const endpoints = {
     productsOfUserCount: (userId) =>  `/data/catalog/?where=_ownerId%3D%22${userId}%22`,
     create: '/data/memes',
     edit: '/data/memes/',
-    delete: '/data/catalog/'
+    delete: '/data/memes/'
 };
 
 // async function getPagesCount(search) {
